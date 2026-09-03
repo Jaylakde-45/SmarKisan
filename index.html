@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartKisan - AI Agriculture Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. LOGIN & REGISTER PAGE -->
+    <div id="auth-page" class="auth-container">
+        <h1>🌾 SmartKisan</h1>
+        <div class="auth-box">
+            <div class="tab-nav">
+                <button onclick="showAuthForm('login')" class="tab-btn active">Login</button>
+                <button onclick="showAuthForm('register')" class="tab-btn">Register</button>
+            </div>
+            
+            <div id="login-form">
+                <h2>Login to your account</h2>
+                <input type="email" id="loginEmail" placeholder="Email Address"><br>
+                <input type="password" id="loginPass" placeholder="Password"><br>
+                <button onclick="loginUser()" class="main-btn">Login</button>
+                <p id="authMessage" style="color: red; margin-top: 10px;"></p>
+            </div>
+
+            <div id="register-form" style="display: none;">
+                <h2>Create New Account</h2>
+                <input type="text" id="regName" placeholder="Full Name"><br>
+                <input type="email" id="regEmail" placeholder="Email Address"><br>
+                <input type="password" id="regPass" placeholder="Password"><br>
+                <select id="regRole"><option value="farmer">Farmer</option><option value="admin">Admin</option></select><br>
+                <button onclick="registerUser()" class="main-btn">Register</button>
+                <p id="regMessage" style="color: red; margin-top: 10px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ADMIN DASHBOARD -->
+    <div id="admin-dashboard" class="main-container" style="display: none;">
+        <div class="admin-header">
+            <div><h1>📊 Admin Dashboard</h1><p>Manage the database.</p></div>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showAdminSection('manage-users')">👥 Users</button>
+            <button class="tab-btn" onclick="showAdminSection('manage-prices')">💰 Prices</button>
+            <button class="tab-btn" onclick="showAdminSection('manage-diseases')">🩺 Diseases</button>
+        </div>
+        <div id="manage-users" class="section active-section"><h3>Registered Users</h3><div id="usersList" class="admin-list"></div></div>
+        <div id="manage-prices" class="section">
+            <h3>Edit Crop Prices (per Quintal)</h3>
+            <div class="form-grid">
+                <div class="form-group"><label>Crop Name:</label><input type="text" id="adminCropName" placeholder="e.g. Wheat"></div>
+                <div class="form-group"><label>New Price:</label><input type="number" id="adminCropPrice" placeholder="e.g. 2200"></div>
+            </div>
+            <button onclick="adminAddOrUpdatePrice()" class="main-btn">Update Price</button>
+            <div id="priceAdminList" class="admin-list" style="margin-top: 20px;"></div>
+        </div>
+        <div id="manage-diseases" class="section">
+            <h3>Edit Disease Remedies</h3>
+            <div class="form-grid">
+                <div class="form-group"><label>Symptom:</label><input type="text" id="adminSymptom" placeholder="e.g. Yellow Leaves"></div>
+                <div class="form-group"><label>Remedy:</label><input type="text" id="adminRemedy" placeholder="e.g. Spray Urea"></div>
+            </div>
+            <button onclick="adminAddDisease()" class="main-btn">Add/Update Disease</button>
+            <div id="diseaseAdminList" class="admin-list" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- 3. FARMER DASHBOARD (The New "Command Center" Look) -->
+    <div id="farmer-dashboard" class="main-container" style="display: none;">
+        
+        <!-- Top Status Bar -->
+        <div class="ai-status">
+            <span><span class="status-dot"></span> AI Engine: Online</span>
+            <span style="margin-left: 15px;">🛡️ Data: 100% Local/Offline</span>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+
+        <div class="farmer-layout">
+            <!-- Left Sidebar Navigation -->
+            <div class="sidebar">
+                <h1>🌾 SmartKisan</h1>
+                <p style="font-size: 0.9rem; margin-bottom: 20px;">Welcome, <span id="farmerName">Farmer</span>!</p>
+                
+                <button class="tab-btn active" data-tab="soil" onclick="showTab('soil')">🌱 Crop Planner</button>
+                <button class="tab-btn" data-tab="doctor" onclick="showTab('doctor')">🩺 Plant Doctor</button>
+                <button class="tab-btn" data-tab="market" onclick="showTab('market')">💰 Market Price</button>
+                <button class="tab-btn" data-tab="water" onclick="showTab('water')">💧 Irrigation</button>
+            </div>
+
+            <!-- Right Content Area -->
+            <div class="content-area">
+                
+                <!-- Crop Planner -->
+                <div id="soil" class="section active-section">
+                    <h2>🌾 Crop Planner</h2>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Soil:</label><select id="soilInput"><option>Alluvial</option><option>Black (Regur)</option><option>Red</option><option>Laterite</option><option>Clay</option><option>Sandy</option><option>Loam</option></select></div>
+                        <div class="form-group"><label>Season:</label><select id="seasonInput"><option>Kharif</option><option>Rabi</option><option>Zaid</option></select></div>
+                    </div>
+                    <button onclick="getCropRecommendation()" class="main-btn">Get Safe Crop Idea</button>
+                    <div id="resultBox" class="output-box"></div>
+                </div>
+
+                <!-- Plant Doctor -->
+                <div id="doctor" class="section">
+                    <h2>🩺 Plant Doctor</h2>
+                    <div class="form-group"><label>Symptom:</label><select id="symptomInput"></select></div>
+                    <button onclick="diagnosePlant()" class="main-btn">Diagnose Plant</button>
+                    <div id="doctorBox" class="output-box"></div>
+                </div>
+
+                <!-- Market Price -->
+                <div id="market" class="section">
+                    <h2>💰 Mandi Price Alert</h2>
+                    <div class="form-group"><label>Crop:</label><select id="priceCrop"></select></div>
+                    <button onclick="fetchLivePrice()" class="main-btn">Get Live / Offline Price</button>
+                    <div id="priceBox" class="output-box"></div>
+                </div>
+
+                <!-- Irrigation -->
+                <div id="water" class="section">
+                    <h2>💧 Smart Irrigation Advisor</h2>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Crop:</label><select id="cropType"><option value="Rice">Rice</option><option value="Wheat">Wheat</option><option value="Tomato">Tomato</option><option value="Onion">Onion</option><option value="Sugarcane">Sugarcane</option></select></div>
+                        <div class="form-group"><label>Soil:</label><select id="soilTypeIrrigation"><option value="Clay">Clay</option><option value="Loam">Loam</option><option value="Sandy">Sandy</option></select></div>
+                        <div class="form-group"><label>Moisture:</label><input type="number" id="moisture" placeholder="e.g. 40"></div>
+                        <div class="form-group"><label>Rainfall:</label><select id="rainfall"><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option></select></div>
+                    </div>
+                    <button onclick="checkIrrigation()" class="main-btn">Get Water Advice</button>
+                    <div id="irrigationBox" class="output-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

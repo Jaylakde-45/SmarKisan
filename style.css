@@ -1,0 +1,125 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+/* Dark Cyber-Agri Background */
+body {
+    background: radial-gradient(circle at top left, #1b5e20, #0f2027, #2c5364);
+    color: #fff;
+    padding: 20px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Auth Page */
+.auth-container { max-width: 400px; margin: 10vh auto; background: rgba(0,0,0,0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 30px; }
+.auth-box input, .auth-box select { background: #222; border: 1px solid #555; color: white; width: 100%; margin-bottom: 15px; padding: 12px; border-radius: 8px; }
+.auth-box h2 { color: #FF9800; margin-bottom: 20px; text-align: center; }
+
+/* Admin Header */
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-logout { background: #d32f2f; border: none; padding: 10px 20px; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.4); }
+.btn-logout:hover { background: #b71c1c; }
+.admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+.admin-tabs .tab-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
+.admin-tabs .tab-btn.active { background: #2E7D32; color: white; border-color: #2E7D32; box-shadow: 0 0 15px rgba(46,125,50,0.6); }
+
+/* Container */
+.main-container { max-width: 1000px; margin: 0 auto; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+
+/* AI Status Bar */
+.ai-status { display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 10px 20px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; border-bottom: 1px solid #444; }
+.status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #00FF00; margin-right: 5px; box-shadow: 0 0 10px #00FF00; }
+
+/* Farmer Layout */
+.farmer-layout { display: flex; gap: 20px; }
+.sidebar { width: 250px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border: 1px solid #333; }
+.sidebar h1 { color: #fff; font-size: 1.5rem; margin-bottom: 5px; }
+.sidebar .tab-btn { display: block; width: 100%; text-align: left; background: transparent; color: #aaa; border: none; padding: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 10px; margin-bottom: 10px; transition: 0.3s; }
+.sidebar .tab-btn:hover, .sidebar .tab-btn.active { background: linear-gradient(90deg, #FF9800, #FFB74D); color: white; box-shadow: 0 4px 15px rgba(255,152,0,0.4); transform: translateX(5px); }
+
+/* Content Area */
+.content-area { flex: 1; background: rgba(255,255,255,0.95); color: #333; border-radius: 15px; padding: 25px; height: 100%; overflow-y: auto; }
+.content-area h2 { color: #2E7D32; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+.form-group { display: flex; flex-direction: column; }
+label { font-weight: bold; margin-bottom: 5px; color: #555; }
+select, input { padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; width: 100%; margin-top: 5px; }
+select:focus, input:focus { border-color: #2E7D32; outline: none; }
+
+/* Main Buttons */
+.main-btn { background: linear-gradient(45deg, #FF9800, #FFB74D); color: white; border: none; padding: 15px; width: 100%; font-size: 1.2rem; font-weight: bold; border-radius: 12px; margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,152,0,0.4); }
+.main-btn:hover { transform: scale(1.02); }
+
+/* Output Boxes */
+.output-box { margin-top: 20px; background: #e8f5e9; border-left: 5px solid #2E7D32; padding: 15px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; min-height: 50px; text-align: center; color: #1b5e20; }
+
+/* Admin List Cleanup */
+.admin-list { background: #f9f9f9; border-radius: 10px; padding: 15px; border: 1px solid #eee; }
+.admin-list ul { list-style: none; }
+.admin-list li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; font-weight: 500; }
+.admin-list li button { background: #d32f2f; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+
+/* Hide Sections by default */
+.section { display: none; }
+.active-section { display: block; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.section.active-section { animation: fadeIn 0.4s ease-out; }
+
+/* --- PREMIUM LOGIN/REGISTER UI (Paste at bottom of style.css) --- */
+
+/* Make the button container a dark, pill-shaped box */
+.auth-box .tab-nav {
+    background: #1e1e1e;
+    padding: 5px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Style the buttons as transparent inside the box */
+.auth-box .tab-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-weight: bold;
+    padding: 12px 20px;
+    width: 50%; /* Make them equal width */
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+/* The Active button gets the signature Orange Gradient (matches the rest of the app) */
+.auth-box .tab-btn.active {
+    background: linear-gradient(45deg, #FF9800, #FFB74D);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* Make the inputs cleaner with a slightly lighter border */
+.auth-box input, .auth-box select {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    color: #eee;
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.auth-box input:focus, .auth-box select:focus {
+    border-color: #FF9800;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.2);
+}
+
+/* Keep the Login/Register main buttons looking consistent */
+.auth-box .main-btn {
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+}
